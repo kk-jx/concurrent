@@ -7,6 +7,7 @@ import java.util.concurrent.*;
  * Create Time 2020-07-10 11:10
  */
 public class AsynToSynFuture {
+    //创建无边界的阻塞队列，并发高，有OOM异常风险
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public static void main(String[] args) {
