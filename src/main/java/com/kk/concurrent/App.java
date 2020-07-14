@@ -1,14 +1,18 @@
 package com.kk.concurrent;
 
 
+import com.kk.concurrent.singleton.RequestBean;
 import com.kk.concurrent.singleton.SingletonTestThread;
+
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Hello world!
  *
  */
-public class App 
-{
+public class App {
+    private final static ReentrantLock reentrantLock = new ReentrantLock();
+
     public static void main( String[] args ) {
 //        TestThread testThread = new TestThread();
 //        TestThread.OneThread oneThread = testThread.new OneThread();
@@ -21,15 +25,42 @@ public class App
 //        twoThread.start();
 
 
-        SingletonTestThread singletonTestThread = new SingletonTestThread();
-        SingletonTestThread.OneThread oneThread = singletonTestThread.new OneThread();
-        oneThread.setName("one");
-        SingletonTestThread.TwoThread twoThread = singletonTestThread.new TwoThread();
-        twoThread.setName("two");
+        Thread oneThread = new Thread(()->{
+            for (int i=0;i<100000;i++) {
+//                RequestBean requestBean = RequestBean.getInstance();
+                RequestBean requestBean = new RequestBean();
+                try {
+//                    reentrantLock.lock();
+                    SingletonTestThread singletonTestThread = SingletonTestThread.getInstance();
+//                    SingletonTestThread singletonTestThread = new SingletonTestThread();
+                    requestBean.setParam("one");
+                    singletonTestThread.exec(requestBean);
+                } finally {
+//                    reentrantLock.unlock();
+                }
+            }
+        });
+        oneThread.setName("one1");
+        Thread twoThread = new Thread(()->{
+            for (int i=0;i<100000;i++) {
+//                RequestBean requestBean = RequestBean.getInstance();
+                RequestBean requestBean = new RequestBean();
+                try {
+//                    reentrantLock.lock();
+                    SingletonTestThread singletonTestThread = SingletonTestThread.getInstance();
+//                    SingletonTestThread singletonTestThread = new SingletonTestThread();
+                    requestBean.setParam("two");
+                    singletonTestThread.exec(requestBean);
+                } finally {
+//                    reentrantLock.unlock();
+                }
+            }
+        });
+        twoThread.setName("two1");
 
         try {
-            oneThread.start();
             twoThread.start();
+            oneThread.start();
 
         } catch (Exception e) {
             e.printStackTrace();

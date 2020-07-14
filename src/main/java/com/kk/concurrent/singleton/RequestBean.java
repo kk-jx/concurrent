@@ -15,15 +15,15 @@ public class RequestBean {
     public void setParam(String param) {
         this.param = param;
     }
-
-    private RequestBean(){}
-
-    public static RequestBean getInstance(){
-        return InnerClass.requestBean;
-    }
-
-    private static class InnerClass{
-        private final static RequestBean requestBean = new RequestBean();
-    }
+//
+//    private RequestBean(){}
+//
+//    public static RequestBean getInstance(){
+//        return InnerClass.requestBean;
+//    }
+//
+//    private static class InnerClass{
+//        private final static RequestBean requestBean = new RequestBean();
+//    }
 
 }
