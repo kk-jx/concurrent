@@ -26,7 +26,7 @@ public class App {
 
 
         Thread oneThread = new Thread(()->{
-            for (int i=0;i<100000;i++) {
+            for (int i=0;i<10000;i++) {
 //                RequestBean requestBean = RequestBean.getInstance();
                 RequestBean requestBean = new RequestBean();
                 try {
@@ -34,6 +34,11 @@ public class App {
                     SingletonTestThread singletonTestThread = SingletonTestThread.getInstance();
 //                    SingletonTestThread singletonTestThread = new SingletonTestThread();
                     requestBean.setParam("one");
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     singletonTestThread.exec(requestBean);
                 } finally {
 //                    reentrantLock.unlock();
@@ -42,7 +47,7 @@ public class App {
         });
         oneThread.setName("one1");
         Thread twoThread = new Thread(()->{
-            for (int i=0;i<100000;i++) {
+            for (int i=0;i<10000;i++) {
 //                RequestBean requestBean = RequestBean.getInstance();
                 RequestBean requestBean = new RequestBean();
                 try {

@@ -15,7 +15,7 @@ public class RequestBean {
     public void setParam(String param) {
         this.param = param;
     }
-//
+
 //    private RequestBean(){}
 //
 //    public static RequestBean getInstance(){

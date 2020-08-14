@@ -5,17 +5,18 @@ package com.kk.concurrent.singleton;
  * Create By Zhenli.Hu
  * Create Time 2020-07-09 9:29
  */
-public class SingletonTestThread {
+public class SingletonTestThread2 {
 
-    private SingletonTestThread(){}
+    private SingletonTestThread2(){}
 
-    public static SingletonTestThread getInstance(){
+    public static SingletonTestThread2 getInstance(){
         return InnerTest.singletonTestThread;
     }
 
     private static class InnerTest{
-        private final static SingletonTestThread singletonTestThread = new SingletonTestThread();
+        private final static SingletonTestThread2 singletonTestThread = new SingletonTestThread2();
     }
+
 
     /**
      * requestBean本身没有现成安全问题，但对应的类如果有全局变量，就有线程安全问题
@@ -26,9 +27,9 @@ public class SingletonTestThread {
         /**
          * RequestBean单例，存在线程安全问题
          */
-        RequestBean requestBean1 = new RequestBean();
-        requestBean1.setParam(requestBean.getParam()+"1");
-        System.out.println(Thread.currentThread().getName().equals(requestBean1.getParam()));//one-----two-01594259644450
+        RequestBean requestBean2 = new RequestBean();
+        requestBean2.setParam(requestBean.getParam()+"2");
+        System.out.println(Thread.currentThread().getName().equals(requestBean2.getParam()));//one-----two-01594259644450
     }
 
 }
